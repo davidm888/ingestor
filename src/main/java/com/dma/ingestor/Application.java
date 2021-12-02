@@ -1,4 +1,4 @@
-package com.dma.ingestor.controller;
+package com.dma.ingestor;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

@@ -1,30 +1,39 @@
 package com.dma.ingestor.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.dma.ingestor.dto.StatusRequestDTO;
+import com.dma.ingestor.service.IngestorService;
+
 
 @RestController()
 public class IngestorController {
+	
+	@Autowired
+	IngestorService ingestorService;
 
 	@GetMapping("/healthCheck")
 	public String healthCheck() {
-		return "{version: 1.0.0, status: 'OK' }";
+		return ingestorService.healthCheck();
 	}
 	
 	@GetMapping("/status")
 	public String getStatus() {
-		return "{status: active}";
+		return ingestorService.getStatus();
 	}
 	
 	@PutMapping("/status")
-	public String setStatus() {
-		return "{status: inactive}";
+	public String setStatus(@RequestBody StatusRequestDTO statusRequestDTO) {
+		return ingestorService.setStatus(statusRequestDTO);
 	}
 	
 	@GetMapping("/report")
 	public String getReport() {
-		return "{FileProcess: 10, FileWithError: 1, lastIngestion: '2021-11-26 10:11:00', DomaisProcess: 1000000}";
+		return ingestorService.getReport();
 	}
 
 }
